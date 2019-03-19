@@ -15,6 +15,8 @@ class Category extends StatelessWidget {
   final ColorSwatch color;
   final IconData iconLocation;
 
+  static const height = 100.00;
+
   /// Creates a [Category].
   ///
   /// A [Category] saves the name of the Category (e.g. 'Length'), its color for
@@ -25,11 +27,10 @@ class Category extends StatelessWidget {
     @required this.name,
     @required this.color,
     @required this.iconLocation,
-
-}) : assert (name != null),
-    assert (color != null),
-    assert (iconLocation != null),
-    super (key: key);
+  })  : assert(name != null),
+        assert(color != null),
+        assert(iconLocation != null),
+        super(key: key);
 
   /// Builds a custom widget that shows [Category] information.
   ///
@@ -42,23 +43,33 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: Build the custom widget here, referring to the Specs.
 
-    return Container(
-      color: color,
-      padding: const EdgeInsets.all(8.0),
-      height: 100.0,
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children:[
-          Padding(padding: EdgeInsets.all(16),
-          child: Icon(iconLocation, size: 60)
-           ),
-          Text(name,
-          style: TextStyle(
-            fontSize: 24,
-          )),
-        ]
-      ) );
-
+    return Material(
+      borderRadius: BorderRadius.circular(height * .5),
+      child: Container(
+        height: height,
+        child: InkWell(
+          splashColor: color,
+          highlightColor: color,
+          borderRadius: BorderRadius.circular(height * .5),
+          onTap: () {
+            print('I was tapped!');
+          },
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Icon(iconLocation, size: 60)),
+                  Text(name,
+                      style: Theme.of(context).textTheme.display1,
+                      ),
+                ]),
+          ),
+        ),
+      ),
+    );
   }
 }
