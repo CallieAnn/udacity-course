@@ -5,13 +5,6 @@
 // To keep your imports tidy, follow the ordering guidelines at
 // https://www.dartlang.org/guides/language/effective-dart/style#ordering
 import 'package:flutter/material.dart';
-// @required is defined in the meta.dart package
-import 'package:meta/meta.dart';
-
-// We use an underscore to indicate that these variables are private.
-// See https://www.dartlang.org/guides/language/effective-dart/design#libraries
-final _rowHeight = 100.0;
-final _borderRadius = BorderRadius.circular(_rowHeight / 2);
 
 /// A custom [Category] widget.
 ///
@@ -22,13 +15,13 @@ class Category extends StatelessWidget {
   final ColorSwatch color;
   final IconData iconLocation;
 
+  static const height = 100.00;
+
   /// Creates a [Category].
   ///
   /// A [Category] saves the name of the Category (e.g. 'Length'), its color for
   /// the UI, and the icon that represents it (e.g. a ruler).
-  // While the @required checks for whether a named parameter is passed in,
-  // it doesn't check whether the object passed in is null. We check that
-  // in the assert statement.
+  // TODO: You'll need the name, color, and iconLocation from main.dart
   const Category({
     Key key,
     @required this.name,
@@ -48,44 +41,32 @@ class Category extends StatelessWidget {
   // Theme ancestor in the tree. Below, we obtain the display1 text theme.
   // See https://docs.flutter.io/flutter/material/Theme-class.html
   Widget build(BuildContext context) {
+    // TODO: Build the custom widget here, referring to the Specs.
+
     return Material(
-      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(height * .5),
       child: Container(
-        height: _rowHeight,
+        height: height,
         child: InkWell(
-          borderRadius: _borderRadius,
-          highlightColor: color,
           splashColor: color,
-          // We can use either the () => function() or the () { function(); }
-          // syntax.
+          highlightColor: color,
+          borderRadius: BorderRadius.circular(height * .5),
           onTap: () {
             print('I was tapped!');
           },
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              // There are two ways to denote a list: `[]` and `List()`.
-              // Prefer to use the literal syntax, i.e. `[]`, instead of `List()`.
-              // You can add the type argument if you'd like, i.e. <Widget>[].
-              // See https://www.dartlang.org/guides/language/effective-dart/usage#do-use-collection-literals-when-possible
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Icon(
-                    iconLocation,
-                    size: 60.0,
+            child: new Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Icon(iconLocation, size: 60)),
+                  Text(name,
+                    style: Theme.of(context).textTheme.display1,
                   ),
-                ),
-                Center(
-                  child: Text(
-                    name,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline,
-                  ),
-                ),
-              ],
-            ),
+                ]),
           ),
         ),
       ),
