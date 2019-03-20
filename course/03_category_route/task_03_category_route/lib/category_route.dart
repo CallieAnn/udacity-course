@@ -74,7 +74,15 @@ class CategoryRoute extends StatelessWidget {
 
 
     // TODO: Create an App Bar
-    final appBar = AppBar();
+    final appBar = AppBar(
+      title: Text('Unit Converter',
+      style:TextStyle(
+        fontSize: 30,
+        color: Colors.black54,
+      ),),
+      elevation: 0,
+      backgroundColor: _backgroundColor,
+      );
 
     return Scaffold(
       appBar: appBar,
